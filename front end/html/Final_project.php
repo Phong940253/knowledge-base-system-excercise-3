@@ -58,23 +58,20 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-8 py-3">
-              <article class="blog-entry">
+              <form class="blog-entry">
                 <div class="post-title">
                   <p>Nhập bài toán</p>
                 </div>
                 <div class="entry-header">
-                  <!-- <div class="post-thumbnail">
-                    <img src="../assets/img/blogs/blog_4.jpg" alt="" />
-                  </div> -->
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    style="height: 200px; width: 500px"
-                  />
+                  <textarea
+                    wrap="hard"
+                    style="resize: none"
+                    cols="60"
+                    rows="5"
+                  ></textarea>
                 </div>
-                <a href="#" class="btn btn-primary">OK</a>
-              </article>
+                <button class="btn btn-primary">OK</button>
+              </form>
             </div>
             <!-- Sidebar -->
             <div class="col-lg-4 py-3">
