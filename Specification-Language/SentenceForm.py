@@ -19,9 +19,9 @@ class SentenceForm:
 
     def __init__(self):
         self.object_definitions = self.readFile(
-            "./Specification-Language/data/sentence-form/object_definition.txt", self.object_definitions)
+            "../../Specification-Language/data/sentence-form/object_definition.txt", self.object_definitions)
         self.object_attributes = self.readFile(
-            "./Specification-Language/data/sentence-form/object_attribute.txt", self.object_attributes)
+            "../../Specification-Language/data/sentence-form/object_attribute.txt", self.object_attributes)
         # self.object_relations = self.readFile(
         #     "./data/sentence-form/object_relations.txt", self.object_relations)
         # self.object_properties = self.readFile(

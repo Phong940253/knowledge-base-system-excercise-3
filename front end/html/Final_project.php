@@ -1,12 +1,3 @@
-<?php
-    function call_word_segmentation($bai_toan){
-        echo shell_exec("Specification-Language/model.py '".$bai_toan."'");
-    }
-if(isset($_POST['submit'])){
-    $bai_toan = $_POST['bai_toan'];
-    call_word_segmentation($bai_toan);
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -76,9 +67,21 @@ if(isset($_POST['submit'])){
                     wrap="hard"
                     style="resize: none"
                     cols="60"
-                    rows="5"
+                    rows="15"
                     name="bai_toan"
-                  ></textarea>
+                  ><?php
+                  if(isset($_GET['bai_toan'])){
+                    $bai_toan = $_GET['bai_toan'];
+                    $output=null;
+                    $retval=null;
+                    $result = shell_exec('python ../../Specification-Language/model.py "' . $bai_toan . '"');
+                    // echo "Returned with status $retval and output:\n";
+                    // foreach ($output as $line) {
+                    //   echo $line;
+                    // }
+                    echo $result;
+                  }       
+                  ?></textarea>
                 </div>
                 <button class="btn btn-primary">OK</button>
               </form>
@@ -90,29 +93,27 @@ if(isset($_POST['submit'])){
                 <ul class="categories">
                   <li>
                     <a href="#"
-                      >Tìm toạ độ giao điểm của hai đường thẳng cắt nhau</a
+                      >Cho tam giác ABC, vuông tại A, cạnh BC bằng 5cm, AC bằng 3cm. Tính diện tích tam giác ABC.</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Tìm điểm đối xứng của một điểm qua một đường thẳng</a
+                      >Đường tròn ngoại tiếp và đường tròn nội tiếp tam giác ABC có bán kính lần lượt là R và r. Biết rằng BAC - ACB = ABC - BAC. Tính diện tích tam giác ABC theo R và r.</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Kiểm tra tính cùng phía, khác phía với một đường thẳng</a
+                      >Cho tam giác ABC nhọn có AB > AC nội tiếp đường tròn (O). Gọi H là trực tâm của tam giác và AH vuông góc với BC tại F. Gọi M là trung điểm của BC. Trên đường tròn (O) lấy các điểm Q và K sao cho HQA = HKQ = 90° (Các điểm A, B, C, K, Q theo thứ tự đó trên đường tròn). Chứng minh rằng đường tròn ngoại tiếp tam giác KHQ tiếp xúc với đường tròn ngoại tiếp tam giác MFK.</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Tìm chân đường phân giác trong, ngoài của góc trong tam
-                      giác</a
+                      >Cho tam giác ABC có ba đường cao AD, BE, CF. Gọi G, P lần lượt là hình chiếu của D trên AB và AC. Gọi I, K lần lượt là hình chiếu của E trên AB và BC. Gọi M, N lần lượt là hình chiếu của F trên AC và BC. Chứng minh rằng sáu điểm G, P, I, K, M, N cùng nằm trên một đường tròn.</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Tìm trọng tâm, trực tâm, tâm đường tròn ngoại tiếp, nội
-                      tiếp tam giác</a
+                      >Cho tam giác ABC có BAC = 30°. Đường phân giác trong và phân giác ngoài của góc ABC cắt cạnh AC lần lượt tại B1, B2. Đường phân giác trong và phân giác ngoài của góc ACB cắt cạnh AB lần lượt tại C1, C2. Đường tròn ngoại tiếp tam giác BB1B2 cắt đường tròn ngoại tiếp tam giác CC1C2 tại điểm P ở trong tam giác ABC. Gọi O là trung điểm B1B2. Chứng minh rằng CP vuông góc với BP.</a
                     >
                   </li>
                 </ul>
