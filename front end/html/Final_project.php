@@ -1,3 +1,12 @@
+<?php
+    function call_word_segmentation($bai_toan){
+        echo shell_exec("Specification-Language/model.py '".$bai_toan."'");
+    }
+if(isset($_POST['submit'])){
+    $bai_toan = $_POST['bai_toan'];
+    call_word_segmentation($bai_toan);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -68,6 +77,7 @@
                     style="resize: none"
                     cols="60"
                     rows="5"
+                    name="bai_toan"
                   ></textarea>
                 </div>
                 <button class="btn btn-primary">OK</button>
@@ -152,7 +162,6 @@
       </div>
     </footer>
     <!-- .page-footer -->
-
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
