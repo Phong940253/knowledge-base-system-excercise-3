@@ -83,12 +83,22 @@ class SentenceForm:
     def findSentenceForm(self, text):
         segments, poss = self.createSenctenceForm(text)
         sentenceSegment = []
+        sentencePos = []
         preSLForm = []
-        for pos in poss:
+        for idx, pos in enumerate(poss):
+
+            checki = []
+            checkj = []
+            # lưu các chỉ số tránh trường hợp trùng mẫu câu
+
             for i in range(len(pos)):
                 for j in range(i + 1, len(pos) + 1):
                     form = "|".join(pos[i:j])
-                    if self.getPreSLForm(form):
-                        sentenceSegment.append(form)
+                    if self.getPreSLForm(form) and i not in checki and j not in checkj:
+                        checki.append(i)
+                        checkj.append(j)
+                        sentenceSegment.append(segments[idx][i:j])
+                        sentencePos.append(form)
                         preSLForm.append(self.getPreSLForm(form))
-        return sentenceSegment, preSLForm
+                        break
+        return sentenceSegment, sentencePos, preSLForm
