@@ -1,25 +1,56 @@
-
+from concept import getConcept
+from rule import getRuleFormat
 import re
 
 
-def test(match):
-    return match.group(1) + " " + match.group(2) + " " + match.group(3).upper()
-# coding=utf8
-# the above tag defines encoding for this document and is for Python 2.x compatibility
+class Transform:
+    def __init__(self, str):
+        self.listConcept = getConcept()
+        self.listRule = getRuleFormat()
+        self.str = str
+
+    def splitWord(self, text):
+        listWord = []
+        temp = text.split(",")
+        for word in temp:
+            listWord += word.split(".")
+        return listWord
+
+    def preProcess(self):
+        self.str = self.splitWord(self.str)
+
+    def transformBy(self, text, conditions):
+        for condition in conditions:
+            if isinstance(condition[1], str):
+                # trường hợp chỉ thay thế đoạn text được chọn
+                text = re.sub(condition[0], condition[1], text,
+                              re.MULTILINE | re.IGNORECASE)
+            else:
+                # trường hợp thay thế câu thành text trích xuất được
+                matches = re.finditer(condition[0], text,
+                                      re.MULTILINE | re.IGNORECASE)
+                for matchNum, match in enumerate(matches, start=1):
+                    text = condition[1](match)
+        # print(text)
+        return text
+
+    def transform(self, text):
+        # transform by rule
+        text = self.transformBy(text, self.listRule)
+        # transform by concept
+        text = self.transformBy(text, self.listConcept)
+        return text
+
+    def solve(self):
+        self.preProcess()
+        # print(self.str)
+        result = []
+        for text in self.str:
+            result.append(self.transform(text).strip())
+        return ";\n".join(result)
 
 
-def formatSecondUpper(match):
-    return "Đường tròn tâm " + match.group(1) + " bán kính " + match.group(2)
+test_str = "Cho độ dài đoạn thẳng AB = 7cm, biết rằng C là trung điểm của AB. Tính đoạn AC và BC"
 
-
-regex = r"Đường\s+tròn(?:\s+tâm)?\s+([A-Z])(?:(?:\s+bán\s+kính\s+)|\,)?([A-Z])"
-
-test_str = "Đường tròn tâm O bán kính R Đường tròn tâm O,R hoặc Đường tròn O,R Đường tròn O bán kính R"
-
-matches = re.finditer(regex, test_str, re.MULTILINE | re.IGNORECASE)
-
-for matchNum, match in enumerate(matches, start=1):
-    print(match)
-    print(formatSecondUpper(match))
-
-# Note: for Python 2.7 compatibility, use ur"" to prefix the regex and u"" to prefix the test string and substitution.
+engine = Transform(test_str)
+print(engine.solve())
