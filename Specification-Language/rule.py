@@ -20,6 +20,12 @@ def diem_doan(match):
         return match.group(1) + " " + match.group(2) + " " + match.group(3)
 
 
+def diem_doan_extra(match):
+    return match.group(1) + " " + match.group(3) + " của " + match.group(
+        4) + ";" + match.group(2) + " " + match.group(
+            3) + " của " + match.group(5)
+
+
 def diem_tia(match):
     if "thuộc" in match.group(2).casefold():
         return match.group(1) + " thuộc Tia(" + match.group(3) + ")"
@@ -138,6 +144,9 @@ def getRuleFormat():
     listRule.append((
         r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z][A-Za-z])(?:\svà\s([A-Za-z][A-Za-z]))?",
         diem_doan))
+    listRule.append((
+        r"([A-Z])\svà\s([A-Z])\slần\slượt\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z]{2})\svà\s([A-Za-z]{2})",
+        diem_doan_extra))
     # 4. Điểm - tia
     listRule.append((
         r"điểm\s([A-Za-z])\s(thuộc\stia\s([A-Za-z][A-Za-z])|là\sgiao\sđiểm\scủa\s(tia|đoạn)\s([A-Za-z][A-Za-z])\svà\s(tia|đoạn)\s([A-Za-z][A-Za-z]))",

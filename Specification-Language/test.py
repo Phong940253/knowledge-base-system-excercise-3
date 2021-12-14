@@ -16,9 +16,9 @@ class Transform:
         return listWord
 
     def preProcess(self, text):
-        text = re.sub(r"\s([A-Z]{2}), ([A-Z]{2})", "\\g<1> và \\g<2>", text, 0,
-                      re.MULTILINE | re.IGNORECASE | re.UNICODE)
-        text = re.sub(r"\s([A-Z]), ([A-Z])", "\\g<1> và \\g<2>", text, 0,
+        text = re.sub(r"\s([A-Z]{2}), ([A-Z]{2})", " \\g<1> và \\g<2>", text,
+                      0, re.MULTILINE | re.IGNORECASE | re.UNICODE)
+        text = re.sub(r"\s([A-Z]), ([A-Z])", " \\g<1> và \\g<2>", text, 0,
                       re.MULTILINE | re.IGNORECASE | re.UNICODE)
         text = self.splitWord(text)
         return text
@@ -51,12 +51,13 @@ class Transform:
         result = []
         for text in splitText:
             result.append(self.transform(text).strip())
-        return ";\n".join(result)
+        return ";".join(result).replace(";", ";\n")
 
 
 test1 = "Cho độ dài đoạn thẳng AB = 7cm, biết rằng C là trung điểm của AB. Tính đoạn AC và BC"
-test2 = "Cho đoạn thẳng AB có độ dài là 4cm, điểm C nằm giữa hai điểm A và B. M, N lần lượt là trung điểm của AC, BC. Tính đoạn thẳng MN."
+test2 = "Cho đoạn thẳng AB có độ dài là 4cm, điểm C nằm giữa hai điểm A và B. M, N lần lượt là trung điểm của AC, BC. Tính đoạn thẳng MN"
+# test3 = " "
 
 engine = Transform()
-print(engine.solve(test1))
-print(engine.solve(test2))
+print("Câu 1:\n" + engine.solve(test1) + "\n")
+print("Câu 2:\n" + engine.solve(test2) + "\n")
