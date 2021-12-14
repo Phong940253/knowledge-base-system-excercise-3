@@ -124,7 +124,7 @@ def hinh_dang(match):
     return match.group(0)
 
 
-def getRuleForm():
+def getRuleFormat():
     listRule = []
     # 1. Điểm - điểm
     listRule.append((
@@ -136,7 +136,7 @@ def getRuleForm():
          diem_duong))
     # 3. Điểm - đoạn
     listRule.append((
-        r"(?:điểm\s)?([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng)\s([A-Za-z][A-Za-z])(\svà\s([A-Za-z][A-Za-z]))?",
+        r"(?:điểm\s)?([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của|của\shai\sđoạn\sthẳng)\s)?([A-Za-z][A-Za-z])(\svà\s([A-Za-z][A-Za-z]))?",
         diem_doan))
     # 4. Điểm - tia
     listRule.append((
