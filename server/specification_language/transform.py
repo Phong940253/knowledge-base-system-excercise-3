@@ -1,5 +1,5 @@
-from concept import getConcept
-from rule import getRuleFormat
+from .concept import getConcept
+from .rule import getRuleFormat
 import re
 
 
@@ -87,7 +87,7 @@ class Transform:
         text = self.transformBy(text, self.listConcept)
         return text
 
-    def solve(self, text):
+    def transformAll(self, text):
         splitText = self.preProcess(text)
 
         print(splitText)

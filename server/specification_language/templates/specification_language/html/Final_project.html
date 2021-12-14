@@ -54,7 +54,8 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-8 py-3">
-              <form class="blog-entry">
+              <form id="form" class="blog-entry" action="{{ current_path }}/specification_language/push" method="post">
+                {% csrf_token %}
                 <div class="post-title">
                   <p>Nhập bài toán</p>
                 </div>
@@ -63,75 +64,53 @@
                     wrap="hard"
                     style="resize: none"
                     cols="60"
-                    rows="15"
-                    name="bai_toan"
-                  >
-                  <!-- <?php
-                  if(isset($_GET['bai_toan'])){
-                    $bai_toan = $_GET['bai_toan'];
-                    $output=null;
-                    $retval=null;
-                    $result = shell_exec('python ../../Specification-Language/model.py "' . $bai_toan . '"');
-                    // echo "Returned with status $retval and output:\n";
-                    // foreach ($output as $line) {
-                    //   echo $line;
-                    // }
-                    echo $result;
-                  }       
-                  ?> -->
-                </textarea
-                  >
+                    rows="13"
+                    name="problem"
+                    id="problem"
+                    form="form"
+                  ></textarea>
                 </div>
-                <button class="btn btn-primary">OK</button>
+                <button id="submit" type="submit"class="btn btn-primary">OK</button>
+                <div class="entry-header">
+                  <textarea
+                    wrap="hard"
+                    style="resize: none"
+                    cols="60"
+                    rows="10"
+                    id="result"
+                  >
+                  </textarea>
+                </div>
               </form>
             </div>
             <!-- Sidebar -->
             <div class="col-lg-4 py-3">
               <div class="widget-wrap">
-                <h3 class="widget-title">Những bài toán mẫu (Bàn luận sau)</h3>
+                <h3 class="widget-title">Những bài toán mẫu</h3>
                 <ul class="categories">
                   <li>
                     <a href="#"
-                      >Cho tam giác ABC, vuông tại A, cạnh BC bằng 5cm, AC bằng
-                      3cm. Tính diện tích tam giác ABC.</a
+                      >Cho độ dài đoạn thẳng AB = 7cm, biết rằng C là trung điểm của AB. Tính đoạn AC và BC</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Đường tròn ngoại tiếp và đường tròn nội tiếp tam giác ABC
-                      có bán kính lần lượt là R và r. Biết rằng BAC - ACB = ABC
-                      - BAC. Tính diện tích tam giác ABC theo R và r.</a
+                      >Cho đoạn thẳng AB có độ dài là 4cm, điểm C nằm giữa hai điểm A và B. M, N lần lượt là trung điểm của AC, BC. Tính đoạn thẳng MN</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Cho tam giác ABC nhọn có AB > AC nội tiếp đường tròn (O).
-                      Gọi H là trực tâm của tam giác và AH vuông góc với BC tại
-                      F. Gọi M là trung điểm của BC. Trên đường tròn (O) lấy các
-                      điểm Q và K sao cho HQA = HKQ = 90° (Các điểm A, B, C, K,
-                      Q theo thứ tự đó trên đường tròn). Chứng minh rằng đường
-                      tròn ngoại tiếp tam giác KHQ tiếp xúc với đường tròn ngoại
-                      tiếp tam giác MFK.</a
+                      >Cho đoạn thẳng AK có độ dài là 9cm. Cho điểm B thuộc đoạn AK, C nằm giữa hai điểm A và B, biết rằng AC = 4cm, BC = 1cm. Tính đoạn AB và BK</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Cho tam giác ABC có ba đường cao AD, BE, CF. Gọi G, P lần
-                      lượt là hình chiếu của D trên AB và AC. Gọi I, K lần lượt
-                      là hình chiếu của E trên AB và BC. Gọi M, N lần lượt là
-                      hình chiếu của F trên AC và BC. Chứng minh rằng sáu điểm
-                      G, P, I, K, M, N cùng nằm trên một đường tròn.</a
+                      >Cho góc XOY = 110, biết rằng Tia OZ là tia phân giác của góc XOY, Tia OP là tia phân giác của góc ZOY, Tia Oz nằm giữa tia OP và Tia OX. Tính các góc ZOY, ZOX, POZ, POX, POY.</a
                     >
                   </li>
                   <li>
                     <a href="#"
-                      >Cho tam giác ABC có BAC = 30°. Đường phân giác trong và
-                      phân giác ngoài của góc ABC cắt cạnh AC lần lượt tại B1,
-                      B2. Đường phân giác trong và phân giác ngoài của góc ACB
-                      cắt cạnh AB lần lượt tại C1, C2. Đường tròn ngoại tiếp tam
-                      giác BB1B2 cắt đường tròn ngoại tiếp tam giác CC1C2 tại
-                      điểm P ở trong tam giác ABC. Gọi O là trung điểm B1B2.
-                      Chứng minh rằng CP vuông góc với BP.</a
+                      >Cho đoạn thẳng AB, biết rằng AB = 11cm, M nằm giữa hai điểm A và B, có MB - MA = 5cm. Tính đoạn MA, MB.</a
                     >
                   </li>
                 </ul>
@@ -186,5 +165,23 @@
     <script src="{% static 'specification_language/vendor/owl-carousel/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'specification_language/vendor/wow/wow.min.js' %}"></script>
     <script src="{% static 'specification_language/js/mobster.js' %}"></script>
+    <script>
+      $('#form').submit(function(e) {
+        e.preventDefault();
+        var fd = new FormData($(this)[0]);
+        $.ajax({
+          type: "POST",
+          url: '{{ current_path }}/specification_language/push',
+          data: fd,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          type: 'POST',
+          success: function(data){
+            $("#result").val(data.result);
+          }
+        });
+      })
+    </script>
   </body>
 </html>

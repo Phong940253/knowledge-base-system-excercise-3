@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.template import loader
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from .transform import Transform
+from django.http import JsonResponse
 
 
 def index(request):
@@ -14,6 +16,18 @@ def index(request):
 
 
 @api_view(['POST'])
-def getMathProblem(request):
-    data = JSONParser().parse(request)
+def pushMathProblem(request):
+    problem = request.POST.get("problem", "")
+    transform = Transform()
+    result = transform.transformAll(problem)
+
+    template = loader.get_template('html/Final_project.html')
+    # template = loader.get_template('html/staticfile.html')
+
+    response_data = {}
+    response_data['result'] = result
+    response_data['message'] = 'Some error message'
+    response_data['success'] = True
+
+    return JsonResponse(response_data)
     # GET all published tutorials
