@@ -23,12 +23,13 @@ class Transform:
         for condition in conditions:
             if isinstance(condition[1], str):
                 # trường hợp chỉ thay thế đoạn text được chọn
-                text = re.sub(condition[0], condition[1], text,
-                              re.MULTILINE | re.IGNORECASE)
+                text = re.sub(condition[0], condition[1], text, 0,
+                              re.MULTILINE | re.IGNORECASE | re.UNICODE)
             else:
                 # trường hợp thay thế câu thành text trích xuất được
-                matches = re.finditer(condition[0], text,
-                                      re.MULTILINE | re.IGNORECASE)
+                matches = re.finditer(
+                    condition[0], text,
+                    re.MULTILINE | re.IGNORECASE | re.UNICODE)
                 for matchNum, match in enumerate(matches, start=1):
                     text = condition[1](match)
         # print(text)
