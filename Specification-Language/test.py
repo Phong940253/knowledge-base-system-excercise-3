@@ -25,9 +25,11 @@ class Transform:
         text = re.sub(r"(của)\s([A-Z]{2}), ([A-Z]{2})",
                       "\\g<1> \\g<2> và \\g<3>", text, 0,
                       re.MULTILINE | re.UNICODE)
-        text = re.sub(r"\s([A-Z]), ([A-Z])(\W)", " \\g<1> và \\g<2>\\g<3>",
-                      text, 0, re.MULTILINE | re.UNICODE)
+        text = re.sub(r"\s([A-Z]), ([A-Z])\slần\slượt",
+                      " \\g<1> và \\g<2> lần lượt", text, 0,
+                      re.MULTILINE | re.UNICODE)
 
+        # trường hợp có nhiều góc mà không có chữ "góc" thì thêm chữ "góc" vào trước các góc
         search = re.search(r"(góc)\s(?:([A-Z]{3}),\s)+([A-Z]{3})", text,
                            re.MULTILINE | re.UNICODE)
         if search is not None:
@@ -38,6 +40,21 @@ class Transform:
                             re.MULTILINE | re.UNICODE)
             result = result[1:]
             text = text.replace(original, result)
+
+        # Xử lí trường hợp đều thuộc
+        search = re.search(
+            r"([C|c]ác\sđiểm\s)(?:[A-Z]\,?\s)+đều\sthuộc\s([A-Za-z])", text,
+            re.MULTILINE | re.UNICODE)
+        if search is not None:
+            original = search.group(0)
+            tempText = original.replace("đều thuộc", "thuộc")
+            tempText = tempText.replace(search.group(1), "")
+
+            result = re.sub(r"([A-Z])\,\s",
+                            "\\g<1> thuộc " + search.group(2) + ";", tempText,
+                            0, re.MULTILINE | re.UNICODE)
+            text = text.replace(original, result)
+
         text = self.splitWord(text)
         return text
 
@@ -72,6 +89,7 @@ class Transform:
 
     def solve(self, text):
         splitText = self.preProcess(text)
+
         print(splitText)
         result = []
         for text in splitText:
