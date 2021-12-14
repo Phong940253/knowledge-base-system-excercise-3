@@ -103,10 +103,17 @@ def goc_goc(match):
 def goc_doan_tia(match):
     if match.group(2).casefold() == "tia":
         return "Tia(" + match.group(
-            3) + ") là phân giác của góc (" + match.group(1) + ")"
+            3) + ") là phân giác của góc(" + match.group(1) + ")"
     else:
-        return match.group(3) + " là phân giác của góc (" + match.group(
-            1) + ")"
+        return match.group(3) + " là phân giác của góc(" + match.group(1) + ")"
+
+
+def goc_doan_tia_ver_2(match):
+    if match.group(1) is not None:
+        return "Tia " + match.group(
+            2) + " là phân giác của góc(" + match.group(3) + ")"
+    else:
+        return match.group(2) + " là phân giác của góc(" + match.group(3) + ")"
 
 
 def tam_giac(match):
@@ -122,7 +129,7 @@ def goc_co_gia_tri(match):
 
 
 def gia_tri(match):
-    if match.group(1) == "góc":
+    if match.group(1) is not None:
         return "Góc(" + match.group(3).upper() + ")=" + match.group(4)
     elif match.group(2) is not None:
         return match.group(2) + " " + match.group(
@@ -147,7 +154,7 @@ def getRuleFormat():
          diem_duong))
     # 3. Điểm - đoạn
     listRule.append((
-        r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z][A-Za-z])(?:\svà\s([A-Za-z][A-Za-z]))?",
+        r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|đoạn|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z][A-Za-z])(?:\svà\s([A-Za-z][A-Za-z]))?",
         diem_doan))
     listRule.append((
         r"([A-Z])\svà\s([A-Z])\slần\slượt\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z]{2})\svà\s([A-Za-z]{2})",
@@ -204,6 +211,9 @@ def getRuleFormat():
     listRule.append((
         r"góc\s([a-zA-Z][a-zA-Z][a-zA-Z])\slà\sgóc\sphân\sgiác\scủa\s(tia|đoạn\sthẳng)\s([a-zA-Z][a-zA-Z])",
         goc_doan_tia))
+    listRule.append((
+        r"(Tia\s)?([a-zA-Z]{2})\slà\s(?:đoạn\s|tia\s)phân\sgiác\scủa\sgóc\s([a-zA-Z]{3})",
+        goc_doan_tia_ver_2))
 
     # 16 Tam giác
     listRule.append((
