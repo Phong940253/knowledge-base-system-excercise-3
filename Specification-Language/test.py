@@ -55,7 +55,7 @@ class Transform:
 
 
 test1 = "Cho độ dài đoạn thẳng AB = 7cm, biết rằng C là trung điểm của AB. Tính đoạn AC và BC"
-test2 = "Cho đoạn thẳng AB có độ dài là 4cm, điểm C năm giữa hai điểm A và B. M, N lần lượt là trung điểm của AC, BC. Tính đoạn thẳng MN."
+test2 = "Cho đoạn thẳng AB có độ dài là 4cm, điểm C nằm giữa hai điểm A và B. M, N lần lượt là trung điểm của AC, BC. Tính đoạn thẳng MN."
 
 engine = Transform()
 print(engine.solve(test1))

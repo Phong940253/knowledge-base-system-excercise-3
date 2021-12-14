@@ -1,7 +1,7 @@
 def diem_diem(match):
     if match.group(2).casefold() == "nằm giữa":
-        return (match.group(1) + " " + match.group(2) + " " + match.group(4) +
-                "," + match.group(5))
+        return (match.group(1) + " " + match.group(2) + " " + match.group(3) +
+                "," + match.group(4))
     else:
         return match.group(1) + " " + match.group(2)
 
@@ -13,7 +13,7 @@ def diem_duong(match):
 def diem_doan(match):
     if match.group(2).casefold() == "là giao điểm":
         return (match.group(1) + " " + match.group(2) + " của " +
-                match.group(3) + " và " + match.group(5))
+                match.group(3) + " và " + match.group(4))
     elif match.group(2).casefold() == "là trung điểm":
         return match.group(1) + " " + match.group(2) + " của " + match.group(3)
     else:
@@ -128,7 +128,7 @@ def getRuleFormat():
     listRule = []
     # 1. Điểm - điểm
     listRule.append((
-        r"(?:điểm\s)?([A-Za-z](?:\,|và)?[A-Za-z]?(?:\,|và)?[A-Za-z]?)\s(nằm\sgiữa|thẳng\shàng|không\sthẳng\shàng)\s(với\snhau|hai\sđiểm\s([A-Za-z])\svà\s([A-Za-z]))",
+        r"(?:điểm\s)?([A-Za-z](?:\,|và)?[A-Za-z]?(?:\,|và)?[A-Za-z]?)\s(nằm\sgiữa|thẳng\shàng|không\sthẳng\shàng)\s(?:với\snhau|hai\sđiểm\s([A-Za-z])\svà\s([A-Za-z]))",
         diem_diem))
     # 2. Điểm - đường
     listRule.append(
@@ -136,7 +136,7 @@ def getRuleFormat():
          diem_duong))
     # 3. Điểm - đoạn
     listRule.append((
-        r"(?:điểm\s)?([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của|của\shai\sđoạn\sthẳng)\s)?([A-Za-z][A-Za-z])(\svà\s([A-Za-z][A-Za-z]))?",
+        r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z][A-Za-z])(?:\svà\s([A-Za-z][A-Za-z]))?",
         diem_doan))
     # 4. Điểm - tia
     listRule.append((
