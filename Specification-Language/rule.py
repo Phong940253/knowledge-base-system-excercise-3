@@ -80,6 +80,10 @@ def tia_doi_nhau(match):
     return "Tia(" + match.group(2) + ") đối Tia(" + match.group(4) + ")"
 
 
+def tia_doi_nhau_ver_2(match):
+    return "Tia(" + match.group(1) + ") đối Tia(" + match.group(2) + ")"
+
+
 def diem_tia_doan(match):
     return ("Điểm " + match.group(1) + " " + match.group(2) + " " +
             match.group(3) + "(" + match.group(4) + ") và " + match.group(5) +
@@ -194,6 +198,9 @@ def getRuleFormat():
     listRule.append((
         r"(tia\s([A-Za-z][A-Za-z]))\sđối(?:\snhau)?\s(tia\s([A-Za-z][A-Za-z]))",
         tia_doi_nhau))
+    listRule.append((
+        r"(?:tia)?\s([A-Za-z]{2})\svà\s(?:tia)\s([A-Za-z]{2})\sđối(?:\snhau)?",
+        tia_doi_nhau_ver_2))
     # 11-10 Điểm - Tia - Đoạn
     listRule.append((
         r"điểm\s([A-Z])\s(là\sgiao\sđiểm\scủa|nằm\sgiữa)\s(tia|đoạn)\s([A-Za-z][A-Za-z])\svà\s(tia|đoạn)\s([A-Za-z][A-Za-z])",
