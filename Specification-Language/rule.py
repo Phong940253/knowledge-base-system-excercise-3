@@ -11,7 +11,8 @@ def diem_duong(match):
 
 
 def diem_doan(match):
-    if match.group(2).casefold() == "là giao điểm":
+    if match.group(2).casefold() == "là giao điểm" and match.group(
+            4) is not None:
         return (match.group(1) + " " + match.group(2) + " của " +
                 match.group(3) + " và " + match.group(4))
     elif match.group(2).casefold() == "là trung điểm":
@@ -130,7 +131,7 @@ def goc_co_gia_tri(match):
 
 def gia_tri(match):
     if match.group(1) is not None:
-        return "Góc(" + match.group(3).upper() + ")=" + match.group(4)
+        return "Góc(" + match.group(3).upper()[:-1] + ")=" + match.group(4)
     elif match.group(2) is not None:
         return match.group(2) + " " + match.group(
             3).upper() + "= " + match.group(4)
@@ -158,7 +159,7 @@ def getRuleFormat():
          diem_duong))
     # 3. Điểm - đoạn
     listRule.append((
-        r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|đoạn|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z][A-Za-z])(?:\svà\s([A-Za-z][A-Za-z]))?",
+        r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|đoạn|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z][A-Za-z])\s(?:và\s([A-Za-z][A-Za-z]))?",
         diem_doan))
     listRule.append((
         r"([A-Z])\svà\s([A-Z])\slần\slượt\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z]{2})\svà\s([A-Za-z]{2})",
