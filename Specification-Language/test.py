@@ -88,7 +88,7 @@ test6 = "Cho đoạn thẳng AB, biết rằng AB = 11cm, M nằm giữa hai đi
 test7 = "Cho OI và Tia OK đối nhau. I là giao điểm của Tia IO và đoạn AB, biết rằng góc KOA = 120 (độ), góc BOI = 45 (độ), Tia OA nằm giữa Tia OK và Tia OI, Tia OB nằm giữa Tia OK và Tia OI. Tính các góc KOB, AOI và BOA."
 # TODO
 
-test8 = ""
+test8 = "Cho đường thẳng d, các điểm A, B, C, K đều thuộc d, biết rằng K nằm giữa điểm A và C, C nằm giữa điểm K và B. Điểm O bất kì không thuộc d sao cho góc AOK = 30 (độ), KOC = 40 (độ), AOB = 90 (độ). Tính các góc AOC, COB, KOB"
 
 engine = Transform()
 print("Câu 1:\n" + engine.solve(test1) + "\n")
@@ -98,3 +98,4 @@ print("Câu 4:\n" + engine.solve(test4) + "\n")
 print("Câu 5:\n" + engine.solve(test5) + "\n")
 print("Câu 6:\n" + engine.solve(test6) + "\n")
 print("Câu 7:\n" + engine.solve(test7) + "\n")
+print("Câu 8:\n" + engine.solve(test8) + "\n")

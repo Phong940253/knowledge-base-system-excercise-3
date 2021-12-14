@@ -14,13 +14,17 @@ def formatCircle(match):
     return "Đường tròn tâm " + match.group(1) + " bán kính " + match.group(2)
 
 
+def formatLine(match):
+    return "Đường thảng: " + match.group(1)
+
+
 def getConcept():
     listConcept = []
     # listConcept.append(
     #     r"(?:bán|hái|gấp|mua|chở|trồng|đựng|)*\s*(?:được|có|dài|hết|về)+\s*(\d+)\s*((?:\w|\s)+)")
     listConcept.append((r"(TIA)\s+([A-Z]{2})", "\\g<1>(\\g<2>)"))
     listConcept.append((r"Đoạn\s+(?:thẳng\s+)?([A-Z]{2})", "\\g<1>"))
-    listConcept.append((r"(Đường\sthẳng)\s+([a-z])", "\\g<1>: \\g<2>"))
+    listConcept.append((r"(?:Đường\sthẳng)\s+([a-z])", formatLine))
     listConcept.append((r"(góc)\s+([A-Z]{3})", formatConceptGoc))
     listConcept.append((r"(Tam giác)\s+([A-Z]{3})", formatSecondUpper))
     listConcept.append(

@@ -136,6 +136,8 @@ def goc_co_gia_tri(match):
 def gia_tri(match):
     if match.group(1) is not None:
         return "Góc(" + match.group(3).upper()[:-1] + ")=" + match.group(4)
+    elif len(match.group(3)) == 4 and match.group(3)[-1] == " ":
+        return "Góc(" + match.group(3).upper()[:-1] + ")=" + match.group(4)
     elif match.group(2) is not None:
         return match.group(2) + " " + match.group(
             3).upper() + "= " + match.group(4)
