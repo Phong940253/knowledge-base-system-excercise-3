@@ -161,7 +161,7 @@ def getRuleFormat():
         diem_doan_extra))
     # 4. Điểm - tia
     listRule.append((
-        r"điểm\s([A-Za-z])\s(thuộc\stia\s([A-Za-z][A-Za-z])|là\sgiao\sđiểm\scủa\s(tia|đoạn)\s([A-Za-z][A-Za-z])\svà\s(tia|đoạn)\s([A-Za-z][A-Za-z]))",
+        r"(?:điểm)?\s([A-Za-z])\s(thuộc\stia\s([A-Za-z][A-Za-z])|là\sgiao\sđiểm\scủa\s(tia|đoạn)\s([A-Za-z][A-Za-z])\svà\s(tia|đoạn)\s([A-Za-z][A-Za-z]))",
         diem_tia))
     # 5. Điểm - đường tròn
     listRule.append((
