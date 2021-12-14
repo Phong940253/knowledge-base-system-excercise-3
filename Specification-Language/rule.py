@@ -138,6 +138,10 @@ def gia_tri(match):
         return match.group(3).upper() + " = " + match.group(4)
 
 
+def gia_tri_2(match):
+    return match.group(1) + "=" + match.group(2)
+
+
 def hinh_dang(match):
     return match.group(0)
 
@@ -177,7 +181,7 @@ def getRuleFormat():
         diem_doan_tron))
     # 8. Đoạn - Đoạn
     listRule.append((
-        r"([A-Za-z][A-Za-z])\s(song\ssong|vuông|bằng|=)\s(?:với\s)?([A-Za-z][A-Za-z])",
+        r"([A-Za-z][A-Za-z])\s(song\ssong|vuông|bằng)\s(?:với\s)?([A-Za-z][A-Za-z])",
         doan_doan))
     listRule.append((
         r"([A-Za-z])\slà\sgiao\sđiểm\scủa\sđoạn\s([A-Za-z][A-Za-z])\svà\s([A-Za-z][A-Za-z])",
@@ -223,6 +227,9 @@ def getRuleFormat():
     listRule.append((
         r"(góc\s)?((?:diện\stích|chu\svi|nửa\schu\svi)\s(?:tam\sgiác|tứ\sgiác))?\s*([A-Z]{2,4})\s*(?:=|bằng|có\s*độ\s*dài\s*là)\s*(\d+(\.\d+)?)",
         gia_tri))
+
+    listRule.append(
+        (r"([A-Z]{2}[A-Z\s\+\-\*\/]+)=([A-Z\s\+\-\*\/]+[A-Z]{2})", gia_tri_2))
 
     # 2.2.4
     listRule.append((

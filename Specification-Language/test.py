@@ -5,6 +5,9 @@ import re
 
 class Transform:
     exceptList = [r"(góc)\s+([A-Z]{3})"]
+    exceptListNoInsensitive = [
+        r"([A-Z]{2}[A-Z\s\+\-\*\/]+)=([A-Z\s\+\-\*\/]+[A-Z]{2})"
+    ]
 
     def __init__(self):
         self.listConcept = getConcept()
@@ -21,8 +24,9 @@ class Transform:
         return listWord
 
     def preProcess(self, text):
-        text = re.sub(r"\s([A-Z]{2}), ([A-Z]{2})", " \\g<1> và \\g<2>", text,
-                      0, re.MULTILINE | re.UNICODE)
+        text = re.sub(r"(của)\s([A-Z]{2}), ([A-Z]{2})",
+                      "\\g<1> \\g<2> và \\g<3>", text, 0,
+                      re.MULTILINE | re.UNICODE)
         text = re.sub(r"\s([A-Z]), ([A-Z])(\W)", " \\g<1> và \\g<2>\\g<3>",
                       text, 0, re.MULTILINE | re.UNICODE)
 
@@ -48,9 +52,13 @@ class Transform:
                               re.MULTILINE | re.IGNORECASE | re.UNICODE)
             else:
                 # trường hợp thay thế câu thành text trích xuất được
-                matches = re.finditer(
-                    condition[0], text,
-                    re.MULTILINE | re.IGNORECASE | re.UNICODE)
+                if condition[0] in self.exceptListNoInsensitive:
+                    matches = re.finditer(condition[0], text,
+                                          re.MULTILINE | re.UNICODE)
+                else:
+                    matches = re.finditer(
+                        condition[0], text,
+                        re.MULTILINE | re.IGNORECASE | re.UNICODE)
                 for matchNum, match in enumerate(matches, start=1):
                     # print(condition[0], match)
                     text = condition[1](match)
