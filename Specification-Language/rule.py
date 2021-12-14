@@ -133,9 +133,9 @@ def gia_tri(match):
         return "Góc(" + match.group(3).upper() + ")=" + match.group(4)
     elif match.group(2) is not None:
         return match.group(2) + " " + match.group(
-            3).upper() + " = " + match.group(4)
+            3).upper() + "= " + match.group(4)
     else:
-        return match.group(3).upper() + " = " + match.group(4)
+        return match.group(3).upper() + "= " + match.group(4)
 
 
 def gia_tri_2(match):
@@ -225,7 +225,7 @@ def getRuleFormat():
         tam_giac))
     # 2.2.3
     listRule.append((
-        r"(góc\s)?((?:diện\stích|chu\svi|nửa\schu\svi)\s(?:tam\sgiác|tứ\sgiác))?\s*([A-Z]{2,4})\s*(?:=|bằng|có\s*độ\s*dài\s*là)\s*(\d+(\.\d+)?)",
+        r"(góc\s)?((?:diện\stích|chu\svi|nửa\schu\svi)\s(?:tam\sgiác|tứ\sgiác))?\s*([A-Z]{2,4}\s*[A-Z\s\+\-\*\/]+)(?:=|bằng|có\s*độ\s*dài\s*là)\s*(\d+(\.\d+)?)",
         gia_tri))
 
     listRule.append(

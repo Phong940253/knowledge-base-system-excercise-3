@@ -6,7 +6,8 @@ import re
 class Transform:
     exceptList = [r"(góc)\s+([A-Z]{3})"]
     exceptListNoInsensitive = [
-        r"([A-Z]{2}[A-Z\s\+\-\*\/]+)=([A-Z\s\+\-\*\/]+[A-Z]{2})"
+        r"([A-Z]{2}[A-Z\s\+\-\*\/]+)=([A-Z\s\+\-\*\/]+[A-Z]{2})",
+        r"(góc\s)?((?:diện\stích|chu\svi|nửa\schu\svi)\s(?:tam\sgiác|tứ\sgiác))?\s*([A-Z]{2,4}\s*[A-Z\s\+\-\*\/]+)(?:=|bằng|có\s*độ\s*dài\s*là)\s*(\d+(\.\d+)?)"
     ]
 
     def __init__(self):
@@ -86,9 +87,13 @@ test2 = "Cho đoạn thẳng AB có độ dài là 4cm, điểm C nằm giữa h
 test3 = "Cho đoạn thẳng AK có độ dài là 9cm. Cho điểm B thuộc đoạn AK, C nằm giữa hai điểm A và B, biết rằng AC = 4cm, BC = 1cm. Tính đoạn AB và BK"
 test4 = "Cho góc XOY = 110, biết rằng Tia OZ là tia phân giác của góc XOY, Tia OP là tia phân giác của góc ZOY, Tia Oz nằm giữa tia OP và Tia OX. Tính các góc ZOY, ZOX, POZ, POX, POY."
 test5 = "Cho điểm M thuộc tia OX, Và N thuộc Tia OY, K thuộc tia OX, biết rằng OM + ON = OK, OM = 4cm; ON = 6cm. Tính đoạn MN, OK, MK, NK."
+test6 = "Cho đoạn thẳng AB, biết rằng AB = 11cm, M nằm giữa hai điểm A và B, có MB - MA = 5cm. Tính đoạn MA, MB."
+test7 = "Cho OI và Tia OK đối nhau. I là giao điểm của Tia IO và đoạn AB, biết rằng góc KOA = 120 (độ), góc BOI = 45 (độ), Tia OA nằm giữa Tia OK và Tia OI, Tia OB nằm giữa Tia OK và Tia OI. Tính các góc KOB, AOI và BOA."
 engine = Transform()
 print("Câu 1:\n" + engine.solve(test1) + "\n")
 print("Câu 2:\n" + engine.solve(test2) + "\n")
 print("Câu 3:\n" + engine.solve(test3) + "\n")
 print("Câu 4:\n" + engine.solve(test4) + "\n")
 print("Câu 5:\n" + engine.solve(test5) + "\n")
+print("Câu 6:\n" + engine.solve(test6) + "\n")
+# print("Câu 7:\n" + engine.solve(test7) + "\n")
