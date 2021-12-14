@@ -4,20 +4,24 @@ import re
 
 
 class Transform:
-    def __init__(self, str):
+    def __init__(self):
         self.listConcept = getConcept()
         self.listRule = getRuleFormat()
-        self.str = str
 
     def splitWord(self, text):
         listWord = []
-        temp = text.split(",")
+        temp = text.split(".")
         for word in temp:
-            listWord += word.split(".")
+            listWord += word.split(",")
         return listWord
 
-    def preProcess(self):
-        self.str = self.splitWord(self.str)
+    def preProcess(self, text):
+        text = re.sub(r"([A-Z]{2}), ([A-Z]{2})", "\\g<1> và \\g<2>", text, 0,
+                      re.MULTILINE | re.IGNORECASE | re.UNICODE)
+        text = re.sub(r"([A-Z]), ([A-Z])", "\\g<1> và \\g<2>", text, 0,
+                      re.MULTILINE | re.IGNORECASE | re.UNICODE)
+        text = self.splitWord(text)
+        return text
 
     def transformBy(self, text, conditions):
         for condition in conditions:
@@ -42,16 +46,17 @@ class Transform:
         text = self.transformBy(text, self.listConcept)
         return text
 
-    def solve(self):
-        self.preProcess()
-        # print(self.str)
+    def solve(self, text):
+        splitText = self.preProcess(text)
         result = []
-        for text in self.str:
+        for text in splitText:
             result.append(self.transform(text).strip())
         return ";\n".join(result)
 
 
-test_str = "Cho độ dài đoạn thẳng AB = 7cm, biết rằng C là trung điểm của AB. Tính đoạn AC và BC"
+test1 = "Cho độ dài đoạn thẳng AB = 7cm, biết rằng C là trung điểm của AB. Tính đoạn AC và BC"
+test2 = "Cho đoạn thẳng AB có độ dài là 4cm, điểm C năm giữa hai điểm A và B. M, N lần lượt là trung điểm của AC, BC. Tính đoạn thẳng MN."
 
-engine = Transform(test_str)
-print(engine.solve())
+engine = Transform()
+print(engine.solve(test1))
+print(engine.solve(test2))
