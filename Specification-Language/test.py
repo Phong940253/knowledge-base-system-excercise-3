@@ -16,9 +16,9 @@ class Transform:
         return listWord
 
     def preProcess(self, text):
-        text = re.sub(r"([A-Z]{2}), ([A-Z]{2})", "\\g<1> và \\g<2>", text, 0,
+        text = re.sub(r"\s([A-Z]{2}), ([A-Z]{2})", "\\g<1> và \\g<2>", text, 0,
                       re.MULTILINE | re.IGNORECASE | re.UNICODE)
-        text = re.sub(r"([A-Z]), ([A-Z])", "\\g<1> và \\g<2>", text, 0,
+        text = re.sub(r"\s([A-Z]), ([A-Z])", "\\g<1> và \\g<2>", text, 0,
                       re.MULTILINE | re.IGNORECASE | re.UNICODE)
         text = self.splitWord(text)
         return text
