@@ -121,9 +121,14 @@ def goc_co_gia_tri(match):
     return "Góc(" + match.group(1) + ") = " + match.group(2)
 
 
-def DT_CV_NCV(match):
-    return match.group(1) + " " + match.group(2) + " " + match.group(
-        3) + " = " + match.group(5)
+def gia_tri(match):
+    if match.group(1) == "góc":
+        return "Góc(" + match.group(3).upper() + ")=" + match.group(4)
+    elif match.group(2) is not None:
+        return match.group(2) + " " + match.group(
+            3).upper() + " = " + match.group(4)
+    else:
+        return match.group(3).upper() + " = " + match.group(4)
 
 
 def hinh_dang(match):
@@ -206,15 +211,8 @@ def getRuleFormat():
         tam_giac))
     # 2.2.3
     listRule.append((
-        r"đoạn?.*([A-Z][A-Z])\s*(?:=|bằng|có\s*độ\s*dài\s*là)?\s*(\d+(\.\d+)?)",
-        doan_thang_co_gia_tri))
-    listRule.append(
-        (r"(?:góc|\,)\s*([A-Z][A-Z][A-Z])\s*(?:=|bằng)+\s*(\d{1,3})",
-         goc_co_gia_tri))
-    # Chu vi diện tích
-    listRule.append((
-        r"(diện\stích|chu\svi|nửa\schu\svi)\s(tam\sgiác|tứ\sgiác)\s+([A-Z][A-Z][A-Z]([A-Z])?)\s+(?:=|bằng|là)\s+(\d+(\.\d+)?)",
-        DT_CV_NCV))
+        r"(góc\s)?((?:diện\stích|chu\svi|nửa\schu\svi)\s(?:tam\sgiác|tứ\sgiác))?\s*([A-Z]{2,4})\s*(?:=|bằng|có\s*độ\s*dài\s*là)\s*(\d+(\.\d+)?)",
+        gia_tri))
 
     # 2.2.4
     listRule.append((
