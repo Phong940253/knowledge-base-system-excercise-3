@@ -5,7 +5,9 @@ import re
 
 class Transform:
     exceptList = [r"(góc)\s+([A-Z]{3})"]
-    exceptListNoInsensitive = ["gia_tri_2", "gia_tri"]
+    exceptListNoInsensitive = [
+        "gia_tri", "gia_tri_2", "diem_diem", "diem_doan"
+    ]
 
     def __init__(self):
         self.listConcept = getConcept()
@@ -67,9 +69,10 @@ class Transform:
                               re.MULTILINE | re.IGNORECASE | re.UNICODE)
             else:
                 # trường hợp thay thế câu thành text trích xuất được
-                if str(condition[1]) in self.exceptListNoInsensitive:
+                if condition[1].__name__ in self.exceptListNoInsensitive:
                     matches = re.finditer(condition[0], text,
                                           re.MULTILINE | re.UNICODE)
+                    # print(matches)
                 else:
                     matches = re.finditer(
                         condition[0], text,

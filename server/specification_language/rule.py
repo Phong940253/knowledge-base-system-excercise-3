@@ -157,7 +157,7 @@ def getRuleFormat():
     listRule = []
     # 1. Điểm - điểm
     listRule.append((
-        r"(?:điểm\s)?([A-Za-z](?:\,|và)?[A-Za-z]?(?:\,|và)?[A-Za-z]?)\s(nằm\sgiữa|thẳng\shàng|không\sthẳng\shàng)\s(?:với\snhau|hai\sđiểm\s([A-Za-z])\svà\s([A-Za-z]))",
+        r"(?:điểm\s)?\s([A-Z](?:\,|và)?(?:(?:[A-Z](?:\,|và)?){2})?)\s(nằm\sgiữa|thẳng\shàng|không\sthẳng\shàng)\s(?:với\snhau|hai\sđiểm\s|điểm\s)?(?:([A-Z])\svà\s([A-Z]))?",
         diem_diem))
     # 2. Điểm - đường
     listRule.append(
@@ -165,7 +165,7 @@ def getRuleFormat():
          diem_duong))
     # 3. Điểm - đoạn
     listRule.append((
-        r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|đoạn|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z][A-Za-z])\s(?:và\s([A-Za-z][A-Za-z]))?",
+        r"(?:điểm\s)?\s([A-Z])\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|đoạn|của\shai\sđoạn\sthẳng|của)\s)([A-Z]{2})(?:\svà\s([A-Za-z][A-Za-z]))?",
         diem_doan))
     listRule.append((
         r"([A-Z])\svà\s([A-Z])\slần\slượt\s(nằm\sgiữa|không\snằm\sgiữa|thuộc|là\strung\sđiểm|là\sgiao\sđiểm)\s(?:(?:đoạn\sthẳng|của\shai\sđoạn\sthẳng|của)\s)([A-Za-z]{2})\svà\s([A-Za-z]{2})",

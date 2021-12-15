@@ -18,6 +18,7 @@ def index(request):
 @api_view(['POST'])
 def pushMathProblem(request):
     problem = request.POST.get("problem", "")
+    problem = problem.replace("\r\n", "")
     transform = Transform()
     result = transform.transformAll(problem)
 

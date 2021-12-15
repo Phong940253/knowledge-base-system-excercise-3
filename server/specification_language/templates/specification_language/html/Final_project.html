@@ -106,7 +106,16 @@
                     Cho góc XOY = 110, biết rằng Tia OZ là tia phân giác của góc XOY, Tia OP là tia phân giác của góc ZOY, Tia Oz nằm giữa tia OP và Tia OX. Tính các góc ZOY, ZOX, POZ, POX, POY.
                   </li>
                   <li>
-                      Cho đoạn thẳng AB, biết rằng AB = 11cm, M nằm giữa hai điểm A và B, có MB - MA = 5cm. Tính đoạn MA, MB.
+                     Cho điểm M thuộc tia OX, Và N thuộc Tia OY, K thuộc tia OX, biết rằng OM + ON = OK, OM = 4cm; ON = 6cm. Tính đoạn MN, OK, MK, NK.
+                  </li>
+                  <li>
+                    Cho đoạn thẳng AB, biết rằng AB = 11cm, M nằm giữa hai điểm A và B, có MB - MA = 5cm. Tính đoạn MA, MB.
+                  </li>
+                  <li>
+                    Cho OI và Tia OK đối nhau. I là giao điểm của Tia IO và đoạn AB, biết rằng góc KOA = 120 (độ), góc BOI = 45 (độ), Tia OA nằm giữa Tia OK và Tia OI, Tia OB nằm giữa Tia OK và Tia OI. Tính các góc KOB, AOI, BOA.
+                  </li>
+                  <li>
+                    Cho ba điểm S, R, A thẳng hàng, biết rằng R nằm giữa hai điểm S và A, cho điểm M, N bất kì sao cho: tia RM nằm giữa tia RS và tia RN, tia RN nằm giữa tia RM và tia RA, góc ARM = 130 (độ), góc SRN = 130 (độ). Tính: góc ARN, MRS, MRN;
                   </li>
                 </ul>
               </div>
@@ -173,7 +182,7 @@
           dataType: "json",
           type: 'POST',
           success: function(data){
-            $("#result").val(data.result);
+            $("#result").text(data.result);
           }
         });
       })
